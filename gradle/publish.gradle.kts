@@ -1,7 +1,6 @@
 import dependencies.Versions
 
 apply(plugin = "maven-publish")
-apply(plugin = "signing")
 
 fun Project.publishing(action: PublishingExtension.() -> Unit) =
     configure(action)
@@ -91,8 +90,4 @@ publishing {
             }
         }
     }
-}
-
-signing {
-    sign(publications)
 }
