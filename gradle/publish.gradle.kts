@@ -1,4 +1,5 @@
 import dependencies.Versions
+import java.util.Properties
 
 apply(plugin = "maven-publish")
 
@@ -87,6 +88,21 @@ publishing {
             credentials {
                 username = sonatypeUser ?: sonatypeUsernameEnv ?: ""
                 password = sonatypePassword ?: sonatypePasswordEnv ?: ""
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = uri("https://gitlab.com/api/v4/projects/19091740/packages/maven")
+            name = "GitLab"
+            credentials {
+                val local = Properties().apply {
+                    load(rootProject.file("local.properties").reader())
+                }
+
+                username = local.getProperty("gitlabTokenName") as? String
+                password = local.getProperty("gitlabToken") as? String
             }
         }
     }
